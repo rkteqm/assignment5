@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -57,10 +58,33 @@ class CarsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+        ->scalar('image')
+        ->maxLength('image', 250)
+        ->requirePresence('image', 'create')
+        ->notEmptyString('image', 'Please select your image');
+
+        $validator
             ->scalar('company')
             ->maxLength('company', 100)
             ->requirePresence('company', 'create')
-            ->notEmptyString('company');
+            ->add('company', [
+                'notBlank' => [
+                    'rule'    => ['notBlank'],
+                    'message' => 'Please enter your car company name',
+                    'last' => true
+                ],
+                'characters' => [
+                    'rule'    => ['custom', '/^[A-Z_ ]+$/i'],
+                    'allowEmpty' => false,
+                    'last' => true,
+                    'message' => 'Please Enter characters only.'
+                ],
+                'length' => [
+                    'rule' => ['minLength', 2],
+                    'last' => true,
+                    'message' => 'Company Name need to be at least 2 characters long',
+                ],
+            ]);
 
         $validator
             ->scalar('brand')
@@ -89,13 +113,18 @@ class CarsTable extends Table
             ->scalar('description')
             ->maxLength('description', 250)
             ->requirePresence('description', 'create')
-            ->notEmptyString('description');
-
-        $validator
-            ->scalar('image')
-            ->maxLength('image', 250)
-            ->requirePresence('image', 'create')
-            ->notEmptyFile('image');
+            ->add('description', [
+                'notBlank' => [
+                    'rule'    => ['notBlank'],
+                    'message' => 'Please enter your car description',
+                    'last' => true
+                ],
+                'length' => [
+                    'rule' => ['minLength', 10],
+                    'last' => true,
+                    'message' => 'Company Name need to be at least 10 characters long',
+                ],
+            ]);
 
         $validator
             ->integer('active')
