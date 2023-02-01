@@ -4,6 +4,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Car $car
  */
+
+use Cake\I18n\Number;
+
 ?>
 <div class="container">
     <div class="row">
@@ -51,6 +54,23 @@
                         <th><?= __('Description') ?></th>
                         <td><?= h($car->description) ?></td>
                     </tr>
+                    <?php if ($overallstar != 0) { ?>
+                        <tr>
+                            <th><?= __('Overall Rating') ?></th>
+                            <td>
+                                <span class="ratestars">
+                                    <?php
+                                    for ($i = 0; $i < $overallstar; $i++) {
+                                        echo '<li class="star fa-solid fa-star" value="1"></li>';
+                                    }
+                                    for ($j = $i; $j < 5; $j++) {
+                                        echo '<li class="star fa-regular fa-star" value="1"></li>';
+                                    }
+                                    ?>
+                                </span>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </table>
                 <div class="related">
                     <?php
@@ -85,7 +105,10 @@
                         <?= $this->Form->button(__('Submit')) ?>
                         <?= $this->Form->end() ?>
                     </div>
-                    <?php if (!empty($car->ratings)) : ?>
+                    <?php
+                    $sum = 0;
+                    $count = 0;
+                    if (!empty($car->ratings)) : ?>
                         <h4><?= __('Related Ratings') ?></h4>
                         <div class="table-responsive">
                             <table>
@@ -101,9 +124,10 @@
                                             <span class="ratestars">
                                                 <?php
                                                 for ($i = 0; $i < $ratings->star; $i++) {
-                                                    echo '
-                                                <li class="star fa-solid fa-star" value="1"></li>
-                                                ';
+                                                    echo '<li class="star fa-solid fa-star" value="1"></li>';
+                                                }
+                                                for ($j = $i; $j < 5; $j++) {
+                                                    echo '<li class="star fa-regular fa-star" value="1"></li>';
                                                 }
                                                 ?>
                                             </span>
@@ -112,9 +136,15 @@
                                         <td><?= h($ratings->user_name) ?></td>
                                         <td><?= h($ratings->time) ?></td>
                                     </tr>
+                                    <?php
+
+                                    $count++;
+                                    $sum += $ratings->star;
+                                    ?>
                                 <?php endforeach; ?>
                             </table>
                         </div>
+                        <?php $overallstar = $sum / $count; ?>
                     <?php endif; ?>
                 </div>
             </div>

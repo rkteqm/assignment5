@@ -15,7 +15,7 @@
         </aside>
         <div class="column-responsive column-80">
             <div class="users form content">
-                <?= $this->Form->create($user) ?>
+                <?= $this->Form->create($user, ['action' => 'javascript:void(0)', 'id' => 'regform']) ?>
                 <fieldset>
                     <legend><?= __('Add User') ?></legend>
                     <?php

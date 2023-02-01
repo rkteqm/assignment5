@@ -75,7 +75,7 @@ class UsersTable extends Table
                     'rule'    => ['custom', '/^[A-Z_ ]+$/i'],
                     'allowEmpty' => false,
                     'last' => true,
-                    'message' => 'Please Enter characters only.'
+                    'message' => 'Please Enter characters only'
                 ],
                 'length' => [
                     'rule' => ['minLength', 2],

@@ -101,10 +101,22 @@ class UsersController extends AppController
             'contain' => ['Ratings'],
         ]);
 
+        $overallstar = 0;
         $ratings = $this->Ratings->find('all')->where(['car_id' => $id])->order(['id' => 'DESC'])->all();
+        if (!empty($car->ratings)) {
+            $array = json_decode(json_encode($ratings), true);
+
+            $sum = 0;
+            $count = 0;
+            foreach ($array as $arr) {
+                $sum += $arr['star'];
+                $count++;
+            }
+            $overallstar = $sum / $count;
+        }
 
         // echo '<pre>';
-        // echo ($ratings->star);
+        // print_r($array[0]);
         // die;
         $rating = $this->Ratings->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -131,7 +143,7 @@ class UsersController extends AppController
         }
         // $this->set(compact('rating'));
 
-        $this->set(compact('car', 'role', 'rating', 'ratings'));
+        $this->set(compact('car', 'role', 'rating', 'ratings', 'overallstar'));
     }
 
     /**
@@ -143,6 +155,7 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
+            die('fghdjdhkjsldhfjk');
             $data = $this->request->getData();
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
@@ -335,7 +348,7 @@ class UsersController extends AppController
 
     public function redirectLogin()
     {
-        $this->Flash->error(__('Please login here for rate this car'));
+        $this->Flash->success(__('Please login here for rate this car'));
         return $this->redirect(['action' => 'login']);
     }
 }
