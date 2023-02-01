@@ -129,6 +129,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         #commentshow {
             display: none;
         }
+
+        .homebackgroud{
+            background-color: #ccc;
+        }
+
     </style>
 </head>
 

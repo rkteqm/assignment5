@@ -130,6 +130,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             display: none;
         }
 
+        .homebackgroud{
+            background-color: #ccc;
+        }
+
     </style>
 </head>
 

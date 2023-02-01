@@ -409,7 +409,7 @@ class UsersController extends AppController
 
     public function redirectLogin()
     {
-        $this->Flash->success(__('Please login here for rate this car'));
+        $this->Flash->error(__('Please login here for rate this car'));
         return $this->redirect(['action' => 'login']);
     }
 }

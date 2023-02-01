@@ -1,62 +1,69 @@
-<div class="cars index content">
-    <div class="row">
-        <div class="col-6">
-            <h3><?= __('Search Cars  ') ?></h3>
+<?php
+
+/**
+ * @var \App\View\AppView $this
+ * @var iterable<\App\Model\Entity\Car> $cars
+ */
+?>
+<div class="container-fluid">
+    <div class="column-responsive column-80">
+        <div class="cars index content">
+            <h3><?= __('Cars') ?></h3>
+            <div class="col-6 float-left">
+                <form class="form-inline form-control">
+                    <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Search" aria-label="Search">
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table id="myTable">
+                    <thead>
+                        <tr>
+                            <th><?= $this->Paginator->sort('Sr No') ?></th>
+                            <th><?= $this->Paginator->sort('company') ?></th>
+                            <th><?= $this->Paginator->sort('brand') ?></th>
+                            <th><?= $this->Paginator->sort('model') ?></th>
+                            <th><?= $this->Paginator->sort('make') ?></th>
+                            <th><?= $this->Paginator->sort('color') ?></th>
+                            <th><?= $this->Paginator->sort('description') ?></th>
+                            <th><?= $this->Paginator->sort('image') ?></th>
+                            <th class="actions"><?= __('Actions') ?></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $i = 1;
+                        foreach ($cars as $car) : ?>
+                            <tr>
+                                <td><?= $i //$this->Number->format($car->id) 
+                                    ?></td>
+                                <td><?= h($car->company) ?></td>
+                                <td><?= h($car->brand) ?></td>
+                                <td><?= h($car->model) ?></td>
+                                <td><?= h($car->make) ?></td>
+                                <td><?= h($car->color) ?></td>
+                                <td><?= h($car->description) ?></td>
+                                <td><?= $this->Html->image(h($car->image), array('width' => '70px')) ?></td>
+                                <td class="actions">
+                                    <?= $this->Html->link(__('View'), ['action' => 'view', $car->id]) ?>
+                                </td>
+                            </tr>
+                        <?php
+                            $i++;
+                        endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="paginator">
+                <ul class="pagination">
+                    <?= $this->Paginator->first('<< ' . __('first')) ?>
+                    <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                    <?= $this->Paginator->numbers() ?>
+                    <?= $this->Paginator->next(__('next') . ' >') ?>
+                    <?= $this->Paginator->last(__('last') . ' >>') ?>
+                </ul>
+                <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+            </div>
         </div>
-        <div class="col-6">
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Search" aria-label="Search">
-            </form>
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table id="myTable">
-            <thead>
-                <tr>
-                    <th><?= $this->Paginator->sort('Sr No') ?></th>
-                    <th><?= $this->Paginator->sort('company') ?></th>
-                    <th><?= $this->Paginator->sort('brand') ?></th>
-                    <th><?= $this->Paginator->sort('model') ?></th>
-                    <th><?= $this->Paginator->sort('make') ?></th>
-                    <th><?= $this->Paginator->sort('color') ?></th>
-                    <th><?= $this->Paginator->sort('description') ?></th>
-                    <th><?= $this->Paginator->sort('image') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $i = 1;
-                foreach ($cars as $car) : ?>
-                    <tr>
-                        <td><?= $i //$this->Number->format($car->id) 
-                            ?></td>
-                        <td><?= h($car->company) ?></td>
-                        <td><?= h($car->brand) ?></td>
-                        <td><?= h($car->model) ?></td>
-                        <td><?= h($car->make) ?></td>
-                        <td><?= h($car->color) ?></td>
-                        <td><?= h($car->description) ?></td>
-                        <td><?= $this->Html->image(h($car->image), array('width' => '70px')) ?></td>
-                        <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $car->id]) ?>
-                        </td>
-                    </tr>
-                <?php
-                    $i++;
-                endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
 
