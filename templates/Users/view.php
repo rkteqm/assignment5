@@ -53,11 +53,19 @@
                     </tr>
                 </table>
                 <div class="related">
-                    <div id="commenthide">
-                        <a href="">
-                            <legend><?= __('Rate this car') ?> <i class="fa-solid fa-arrow-right"></i></legend>
-                        </a>
-                    </div>
+                    <?php
+                    if ($role == 1) {
+                        if ($auth == true) { ?>
+                            <div id="commenthide">
+                                <a href="">
+                                    <legend><?= __('Rate this car') ?> <i class="fa-solid fa-arrow-right"></i></legend>
+                                </a>
+                            </div>
+                        <?php } else { ?>
+                            <legend><?= $this->Html->link(__('Rate this car'), ['action' => 'redirectLogin']) ?></legend>
+                    <?php }
+                    }
+                    ?>
                     <div id="commentshow" class="ratings form content">
                         <?= $this->Form->create($rating) ?>
                         <fieldset>

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Http\FlashMessage;
+
 /**
  * Users Controller
  *
@@ -100,19 +102,31 @@ class UsersController extends AppController
         ]);
 
         $ratings = $this->Ratings->find('all')->where(['car_id' => $id])->order(['id' => 'DESC'])->all();
-        
+
         // echo '<pre>';
         // echo ($ratings->star);
         // die;
         $rating = $this->Ratings->newEmptyEntity();
         if ($this->request->is('post')) {
-            $rating = $this->Ratings->patchEntity($rating, $this->request->getData());
-            $rating['user_id'] = $user_id;
-            $rating['car_id'] = $id;
-            $rating['user_name'] = $name;
-            if ($this->Ratings->save($rating)) {
 
-                return $this->redirect(['action' => 'view', $id]);
+            $result = $this->Ratings->find('all')->where(['car_id' => $id, 'user_id' => $user_id])->first();
+            if ($result) {
+                $stars = $this->request->getData('star');
+                $review = $this->request->getData('review');
+                $result->star = $stars;
+                $result->review = $review;
+                if ($this->Ratings->save($result)) {
+                    return $this->redirect(['action' => 'view', $id]);
+                }
+            } else {
+                $rating = $this->Ratings->patchEntity($rating, $this->request->getData());
+                $rating['user_id'] = $user_id;
+                $rating['car_id'] = $id;
+                $rating['user_name'] = $name;
+                if ($this->Ratings->save($rating)) {
+
+                    return $this->redirect(['action' => 'view', $id]);
+                }
             }
         }
         // $this->set(compact('rating'));
@@ -261,7 +275,7 @@ class UsersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'home', 'view']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'home', 'view', 'redirectLogin']);
     }
 
     public function login()
@@ -317,5 +331,11 @@ class UsersController extends AppController
         if ($this->Cars->save($car)) {
             return $this->redirect(['controller' => 'Users', 'action' => 'index']);
         }
+    }
+
+    public function redirectLogin()
+    {
+        $this->Flash->error(__('Please login here for rate this car'));
+        return $this->redirect(['action' => 'login']);
     }
 }
