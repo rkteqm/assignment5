@@ -20,9 +20,16 @@
             <div class="cars index content">
                 <?= $this->Flash->render() ?>
                 <?= $this->Html->link(__('Add'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-                <h3><?= __('Cars') ?></h3>
+                <div class="col-6">
+                    <h3><?= __('Cars  ') ?></h3>
+                </div>
+                <div class="col-6 float-left">
+                    <form class="form-inline">
+                        <input class="form-control mr-sm-2" id="searchBox" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+                </div>
                 <div class="table-responsive">
-                    <table>
+                    <table id="myTable">
                         <thead>
                             <tr>
                                 <th><?= $this->Paginator->sort('Sr No') ?></th>
@@ -40,10 +47,10 @@
                         </thead>
                         <tbody>
                             <?php
-                            $i = 1;
+                            $s = 1;
                             foreach ($cars as $car) : ?>
                                 <tr>
-                                    <td><?= $i //$this->Number->format($car->id) 
+                                    <td><?= $s //$this->Number->format($car->id) 
                                         ?></td>
                                     <td><?= h($car->company) ?></td>
                                     <td><?= h($car->brand) ?></td>
@@ -71,7 +78,7 @@
                                                 for ($j = $i; $j < 5; $j++) {
                                                     echo '<li class="star fa-regular fa-star" value="1"></li>';
                                                 }
-                                            }else{
+                                            } else {
                                                 echo 'No reviews yet';
                                             }
                                             ?>
@@ -92,7 +99,7 @@
                                     </td>
                                 </tr>
                             <?php
-                                $i++;
+                                $s++;
                             endforeach; ?>
                         </tbody>
                     </table>
@@ -117,6 +124,65 @@
         $('.inac').click(function() {
             var status = $(this).val();
             var id = $(this).prev('a').click();
-        })
+        });
+
+        $('.page-link').click(function() {
+            $(".page-item").removeClass("active");
+            addclas = $(this).parent();
+            addclas.addClass("active")
+            var count = $(this).html();
+            $.ajax({
+                url: 'pagination_data.php',
+                type: 'post',
+                data: ({
+                    'mypage': true,
+                    'count': count
+                }),
+                success: function(response) {
+                    $('.rahul').html('');
+                    $('.rahul').append(response);
+                }
+            });
+        });
     });
+
+    function performSearch() {
+
+        // Declare search string 
+        var filter = searchBox.value.toUpperCase();
+
+        // Loop through first tbody's rows
+        for (var rowI = 0; rowI < trs.length; rowI++) {
+
+            // define the row's cells
+            var tds = trs[rowI].getElementsByTagName("td");
+
+            // hide the row
+            trs[rowI].style.display = "none";
+
+            // loop through row cells
+            for (var cellI = 0; cellI < tds.length; cellI++) {
+
+                // if there's a match
+                if (tds[cellI].innerHTML.toUpperCase().indexOf(filter) > -1) {
+
+                    // show the row
+                    trs[rowI].style.display = "";
+
+                    // skip to the next row
+                    continue;
+
+                }
+            }
+        }
+
+    }
+
+    // declare elements
+    const searchBox = document.getElementById('searchBox');
+    const table = document.getElementById("myTable");
+    const trs = table.tBodies[0].getElementsByTagName("tr");
+
+    // add event listener to search box
+    searchBox.addEventListener('keyup', performSearch);
 </script>

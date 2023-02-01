@@ -89,6 +89,13 @@ class UsersController extends AppController
         $this->set(compact('cars'));
     }
 
+    public function myhome()
+    {
+        $this->viewBuilder()->setLayout('mydefault');
+        $cars = $this->paginate($this->Cars->find('all')->where(['active' => 1]));
+        $this->set(compact('cars'));
+    }
+
     /**
      * View method
      *
@@ -345,7 +352,7 @@ class UsersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'home', 'view', 'redirectLogin']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'home', 'view', 'redirectLogin', 'myhome']);
     }
 
     public function login()
