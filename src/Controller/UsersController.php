@@ -39,39 +39,48 @@ class UsersController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         if ($user->role == 0) {
+            // $cars = $this->paginate($this->Cars);
+
+
+            // $cars = $this->Cars->get($id, [
+            //     'contain' => ['Ratings'],
+            // ]);
+
+            $this->paginate = [
+                'contain' => ['Ratings'],
+            ];
             $cars = $this->paginate($this->Cars);
+
+            // $sum = 0;
+            // $count = 0;
+            // foreach ($cars as $car) {
+            //     foreach ($car->ratings as $rating) {
+            //         $sum += $rating['star'];
+            //         $count++;
+            //     }
+            //     $overallstar = $sum / $count;
+            //     echo $overallstar .'<br>';
+            // }
+            // echo '<pre>';
+            // print_r($cars);
+            // die;
+
             $this->set(compact('cars'));
         } else {
             return $this->redirect(['action' => 'home']);
         }
     }
 
-    public function ratingindex()
+    public function userindex()
     {
-        $this->paginate = [
-            'contain' => ['Users', 'Cars'],
-        ];
-        $ratings = $this->paginate($this->Ratings);
+        $user = $this->Authentication->getIdentity();
+        if ($user->role == 0) {
+            $users = $this->paginate($this->Users->find('all')->where(['role' => 1]));
 
-        $this->set(compact('ratings'));
-    }
-
-    public function ratingadd()
-    {
-        $rating = $this->Ratings->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $rating = $this->Ratings->patchEntity($rating, $this->request->getData());
-            $rating['user_id'] = 1;
-            $rating['car_id'] = 1;
-            $rating['user_name'] = 'UserName';
-            if ($this->Ratings->save($rating)) {
-                $this->Flash->success(__('The rating has been saved.'));
-
-                return $this->redirect(['action' => 'ratingindex']);
-            }
-            $this->Flash->error(__('The rating could not be saved. Please, try again.'));
+            $this->set(compact('users'));
+        } else {
+            return $this->redirect(['action' => 'home']);
         }
-        $this->set(compact('rating'));
     }
 
     public function home()
@@ -114,10 +123,6 @@ class UsersController extends AppController
             }
             $overallstar = $sum / $count;
         }
-
-        // echo '<pre>';
-        // print_r($array[0]);
-        // die;
         $rating = $this->Ratings->newEmptyEntity();
         if ($this->request->is('post')) {
 
@@ -146,6 +151,20 @@ class UsersController extends AppController
         $this->set(compact('car', 'role', 'rating', 'ratings', 'overallstar'));
     }
 
+    public function userview($id = null)
+    {
+        $user = $this->Authentication->getIdentity();
+        if ($user->role == 0) {
+            $user = $this->Users->get($id, [
+                'contain' => [],
+            ]);
+
+            $this->set(compact('user'));
+        } else {
+            return $this->redirect(['action' => 'home']);
+        }
+    }
+
     /**
      * Add method
      *
@@ -155,13 +174,13 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            die('fghdjdhkjsldhfjk');
+            // die('fghdjdhkjsldhfjk');
             $data = $this->request->getData();
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'login']);
+                return $this->redirect(['action' => 'userindex']);
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
@@ -265,6 +284,31 @@ class UsersController extends AppController
         }
     }
 
+    public function useredit($id = null)
+    {
+        $user = $this->Authentication->getIdentity();
+        if ($user->role == 0) {
+            $user = $this->Users->get($id, [
+                'contain' => [],
+            ]);
+
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+                if ($this->Users->save($user)) {
+
+                    $this->Flash->success(__('The user has been saved.'));
+
+                    return $this->redirect(['action' => 'userindex']);
+                }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+
+            $this->set(compact('user'));
+        } else {
+            return $this->redirect(['action' => 'home']);
+        }
+    }
+
     /**
      * Delete method
      *
@@ -283,6 +327,19 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function userdelete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $user = $this->Users->get($id);
+        if ($this->Users->delete($user)) {
+            $this->Flash->success(__('The user has been deleted.'));
+        } else {
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect(['action' => 'userindex']);
     }
 
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -330,9 +387,6 @@ class UsersController extends AppController
 
     public function status($id = null, $status = null)
     {
-        // $user = $this->Cars->find('all')->where(['id' => $id])->first();
-        // $user->active = $status;
-
         $this->request->allowMethod(['post']);
 
         $car = $this->Cars->get($id);

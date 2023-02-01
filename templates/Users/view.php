@@ -8,22 +8,24 @@
 use Cake\I18n\Number;
 
 ?>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <aside class="column">
             <div class="side-nav">
-                <h4 class="heading"><?= __('Actions') ?></h4>
-                <?php if ($role == 0) { ?>
-                    <?= $this->Html->link(__('Edit Car'), ['action' => 'edit', $car->id], ['class' => 'side-nav-item']) ?>
-                    <?= $this->Form->postLink(__('Delete Car'), ['action' => 'delete', $car->id], ['confirm' => __('Are you sure you want to delete # {0}?', $car->id), 'class' => 'side-nav-item']) ?>
-                    <?= $this->Html->link(__('List Cars'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-                    <?= $this->Html->link(__('New Car'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
-                <?php } else { ?>
-                    <?= $this->Html->link(__('List Cars'), ['action' => 'home'], ['class' => 'side-nav-item']) ?>
-                <?php } ?>
+                <div class="container">
+                    <h4 class="heading"><?= __('Actions') ?></h4>
+                    <?php if ($role == 0) { ?>
+                        <?= $this->Html->link(__('Edit Car'), ['action' => 'edit', $car->id], ['class' => 'side-nav-item']) ?>
+                        <?= $this->Form->postLink(__('Delete Car'), ['action' => 'delete', $car->id], ['confirm' => __('Are you sure you want to delete # {0}?', $car->id), 'class' => 'side-nav-item']) ?>
+                        <?= $this->Html->link(__('List Cars'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+                        <?= $this->Html->link(__('New Car'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+                    <?php } else { ?>
+                        <?= $this->Html->link(__('List Cars'), ['action' => 'home'], ['class' => 'side-nav-item']) ?>
+                    <?php } ?>
+                </div>
             </div>
         </aside>
-        <div class="column-responsive column-80">
+        <div class="column-responsive column-90">
             <div class="cars view content">
                 <table>
                     <tr>

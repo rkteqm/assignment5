@@ -12,7 +12,7 @@
             <div class="side-nav">
                 <div class="container">
                     <h4 class="heading"><?= __('Actions') ?></h4>
-                    <?= $this->Html->link(__('Car Ratings'), ['action' => 'ratingindex'], ['class' => 'side-nav-item']) ?>
+                    <?= $this->Html->link(__('User Listing'), ['action' => 'userindex'], ['class' => 'side-nav-item']) ?>
                 </div>
             </div>
         </aside>
@@ -32,6 +32,7 @@
                                 <th><?= $this->Paginator->sort('make') ?></th>
                                 <th><?= $this->Paginator->sort('color') ?></th>
                                 <th><?= $this->Paginator->sort('description') ?></th>
+                                <th><?= $this->Paginator->sort('rating') ?></th>
                                 <th><?= $this->Paginator->sort('image') ?></th>
                                 <th><?= $this->Paginator->sort('active') ?></th>
                                 <th class="actions"><?= __('Actions') ?></th>
@@ -50,6 +51,32 @@
                                     <td><?= h($car->make) ?></td>
                                     <td><?= h($car->color) ?></td>
                                     <td><?= h($car->description) ?></td>
+                                    <td>
+                                        <span class="overallratestar">
+                                            <?php
+                                            if (!empty($car->ratings)) {
+                                                $sum = 0;
+                                                $count = 0;
+                                                foreach ($car->ratings as $rating) {
+                                                    $sum += $rating['star'];
+                                                    $count++;
+                                                }
+                                                // $i = 0;
+                                                // if ($count != 0) {
+                                                $overallstar = $sum / $count;
+                                                for ($i = 0; $i < $overallstar; $i++) {
+                                                    echo '<li class="star fa-solid fa-star" value="1"></li>';
+                                                }
+                                                // }
+                                                for ($j = $i; $j < 5; $j++) {
+                                                    echo '<li class="star fa-regular fa-star" value="1"></li>';
+                                                }
+                                            }else{
+                                                echo 'No reviews yet';
+                                            }
+                                            ?>
+                                        </span>
+                                    </td>
                                     <td><?= $this->Html->image(h($car->image), array('width' => '70px')) ?></td>
                                     <td>
                                         <label class="switch">

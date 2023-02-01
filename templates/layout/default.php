@@ -119,6 +119,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             color: tomato;
             font-size: 30px;
         }
+        
+        .overallratestar li{
+            list-style-type: none;
+            color: tomato;
+            font-size: 20px;
+        }
 
         #commentshow{
             display: none;
