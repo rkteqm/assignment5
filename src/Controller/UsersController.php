@@ -89,13 +89,6 @@ class UsersController extends AppController
         $this->set(compact('cars'));
     }
 
-    public function myhome()
-    {
-        $this->viewBuilder()->setLayout('mydefault');
-        $cars = $this->paginate($this->Cars->find('all')->where(['active' => 1]));
-        $this->set(compact('cars'));
-    }
-
     /**
      * View method
      *
@@ -352,7 +345,7 @@ class UsersController extends AppController
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         parent::beforeFilter($event);
-        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'home', 'view', 'redirectLogin', 'myhome']);
+        $this->Authentication->addUnauthenticatedActions(['login', 'register', 'home', 'view', 'redirectLogin']);
     }
 
     public function login()
@@ -388,7 +381,7 @@ class UsersController extends AppController
         // regardless of POST or GET, redirect if user is logged in
         if ($result && $result->isValid()) {
             $this->Authentication->logout();
-            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
+            return $this->redirect(['controller' => 'Users', 'action' => 'home']);
         }
     }
 
@@ -412,4 +405,8 @@ class UsersController extends AppController
         $this->Flash->error(__('Please login here for rate this car'));
         return $this->redirect(['action' => 'login']);
     }
+
+    public $paginate = [
+        'limit' => 5
+    ];
 }

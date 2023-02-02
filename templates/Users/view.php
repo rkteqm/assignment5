@@ -63,10 +63,10 @@ use Cake\I18n\Number;
                                 <span class="ratestars">
                                     <?php
                                     for ($i = 0; $i < $overallstar; $i++) {
-                                        echo '<li class="star fa-solid fa-star" value="1"></li>';
+                                        echo '<li class="fa-solid fa-star" value="1"></li>';
                                     }
                                     for ($j = $i; $j < 5; $j++) {
-                                        echo '<li class="star fa-regular fa-star" value="1"></li>';
+                                        echo '<li class="fa-regular fa-star" value="1"></li>';
                                     }
                                     ?>
                                 </span>
@@ -84,7 +84,7 @@ use Cake\I18n\Number;
                                 </a>
                             </div>
                         <?php } else { ?>
-                            <legend><?= $this->Html->link(__('Rate this car'), ['action' => 'redirectLogin']) ?></legend>
+                            <legend><?= $this->Html->link(__('Rate this car'), ['action' => 'redirectLogin']) ?><i class="fa-solid fa-arrow-right"></i></legend>
                     <?php }
                     }
                     ?>
@@ -126,10 +126,10 @@ use Cake\I18n\Number;
                                             <span class="ratestars">
                                                 <?php
                                                 for ($i = 0; $i < $ratings->star; $i++) {
-                                                    echo '<li class="star fa-solid fa-star" value="1"></li>';
+                                                    echo '<li class="fa-solid fa-star" value="1"></li>';
                                                 }
                                                 for ($j = $i; $j < 5; $j++) {
-                                                    echo '<li class="star fa-regular fa-star" value="1"></li>';
+                                                    echo '<li class="fa-regular fa-star" value="1"></li>';
                                                 }
                                                 ?>
                                             </span>

@@ -144,12 +144,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
         <?php if ($auth == true) { ?>
             <div class="top-nav-title">
-                <a href="<?= $this->Url->build('/Users/logout') ?>">Logout</a>
+                <a href="<?= $this->Url->build('/users/logout') ?>">Logout</a>
             </div>
         <?php } else { ?>
             <div class="top-nav-title">
-                <a href="<?= $this->Url->build('/Users/login') ?>"><span>Login</span></a>
-                <a href="<?= $this->Url->build('/Users/register') ?>">Register</a>
+                <a href="<?= $this->Url->build('/users/login') ?>"><span>Login</span></a>
+                <a href="<?= $this->Url->build('/users/register') ?>">Register</a>
             </div>
         <?php } ?>
     </nav>

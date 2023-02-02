@@ -72,12 +72,13 @@
                                                 // if ($count != 0) {
                                                 $overallstar = $sum / $count;
                                                 for ($i = 0; $i < $overallstar; $i++) {
-                                                    echo '<li class="star fa-solid fa-star" value="1"></li>';
+                                                    echo '<li class="fa-solid fa-star" value="1"></li>';
                                                 }
                                                 // }
                                                 for ($j = $i; $j < 5; $j++) {
-                                                    echo '<li class="star fa-regular fa-star" value="1"></li>';
+                                                    echo '<li class="fa-regular fa-star" value="1"></li>';
                                                 }
+                                                echo '<p>'.$count.' '.' reviews</p>';
                                             } else {
                                                 echo 'No reviews yet';
                                             }
