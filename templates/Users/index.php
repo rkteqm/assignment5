@@ -12,6 +12,7 @@
             <div class="side-nav">
                 <div class="container">
                     <h4 class="heading"><?= __('Actions') ?></h4>
+                    <?= $this->Html->link(__('Car Listing'), ['action' => 'index'], ['class' => 'active side-nav-item']) ?>
                     <?= $this->Html->link(__('User Listing'), ['action' => 'userindex'], ['class' => 'side-nav-item']) ?>
                 </div>
             </div>
@@ -32,17 +33,16 @@
                     <table id="myTable">
                         <thead>
                             <tr>
-                                <th><?= $this->Paginator->sort('Sr No') ?></th>
+                                <th class="txtcenter"><?= $this->Paginator->sort('Sr No') ?></th>
                                 <th><?= $this->Paginator->sort('company') ?></th>
                                 <th><?= $this->Paginator->sort('brand') ?></th>
                                 <th><?= $this->Paginator->sort('model') ?></th>
                                 <th><?= $this->Paginator->sort('make') ?></th>
                                 <th><?= $this->Paginator->sort('color') ?></th>
-                                <th><?= $this->Paginator->sort('description') ?></th>
                                 <th><?= $this->Paginator->sort('rating') ?></th>
-                                <th><?= $this->Paginator->sort('image') ?></th>
-                                <th><?= $this->Paginator->sort('active') ?></th>
-                                <th class="actions"><?= __('Actions') ?></th>
+                                <th class="txtcenter"><?= $this->Paginator->sort('image') ?></th>
+                                <th class="txtcenter"><?= $this->Paginator->sort('active') ?></th>
+                                <th class="actions txtcenter"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -50,14 +50,12 @@
                             $s = 1;
                             foreach ($cars as $car) : ?>
                                 <tr>
-                                    <td><?= $s //$this->Number->format($car->id) 
-                                        ?></td>
+                                    <td class="txtcenter"><?= $s ?></td>
                                     <td><?= h($car->company) ?></td>
                                     <td><?= h($car->brand) ?></td>
                                     <td><?= h($car->model) ?></td>
                                     <td><?= h($car->make) ?></td>
                                     <td><?= h($car->color) ?></td>
-                                    <td><?= h($car->description) ?></td>
                                     <td>
                                         <span class="overallratestar">
                                             <?php
@@ -87,20 +85,24 @@
                                             ?>
                                         </span>
                                     </td>
-                                    <td><?= $this->Html->image(h($car->image), array('width' => '80px')) ?></td>
-                                    <td>
+                                    <td class="txtcenter"><?= $this->Html->image(h($car->image), array('width' => '80px')) ?></td>
+                                    <td class="txtcenter">
                                         <label class="switch">
                                             <?= $this->Form->postLink(__(''), ['action' => 'status', $car->id, $car->active]) ?>
                                             <input type="checkbox" value="<?= $this->Number->format($car->active) ?>" <?php echo ($car->active == 1) ? 'checked' : '' ?> class="inac">
                                             <span class="slider round"></span>
                                         </label>
                                     </td>
-                                    <td class="actions">
-                                        <div class="allfont">
+                                    <td class="actions txtcenter">
+                                        <span class="greenview">
                                             <?= $this->Html->link(__(''), ['action' => 'view', $car->id], ['class' => 'bigfont fa-solid fa-eye']) ?>
+                                        </span>
+                                        <span class="blueedit">
                                             <?= $this->Html->link(__(''), ['action' => 'edit', $car->id], ['class' => 'bigfont fa-solid fa-pen-to-square']) ?>
+                                        </span>
+                                        <span class="reddelete ">
                                             <?= $this->Form->postLink(__(''), ['action' => 'delete', $car->id], ['class' => 'bigfont fa-solid fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $car->id)]) ?>
-                                        </div>
+                                        </span>
                                     </td>
                                 </tr>
                             <?php

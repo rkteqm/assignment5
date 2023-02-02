@@ -109,37 +109,56 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             border-radius: 50%;
         }
 
-        .ratestars{
+        .ratestars {
             display: flex;
         }
 
-        .ratestars li{
+        .ratestars li {
             list-style-type: none;
             margin: 2px;
             color: tomato;
             font-size: 30px;
         }
-        
-        .overallratestar li{
+
+        .overallratestar li {
             list-style-type: none;
             color: tomato;
             font-size: 20px;
         }
 
-        #commentshow{
+        #commentshow {
             display: none;
         }
 
-        .homebackgroud{
+        .homebackgroud {
             background-color: #ccc;
         }
 
-        .bigfont{
+        .bigfont {
             font-size: 20px;
         }
 
-        .allfont a{
+        .active {
+            color: darkcyan !important;
+            font-weight: bold;
+        }
+
+        .greenview a{
             color: darkcyan;
+        }
+
+        .blueedit a{
+            color: #2196F3;
+        }
+
+        .reddelete a{
+            color: tomato;
+        }
+
+        .txtcenter{
+            /* justify-content: center;
+            align-items: center; */
+            text-align: center;
         }
 
     </style>

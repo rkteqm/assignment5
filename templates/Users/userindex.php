@@ -13,6 +13,7 @@
                 <div class="container">
                     <h4 class="heading"><?= __('Actions') ?></h4>
                     <?= $this->Html->link(__('Car Listing'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+                    <?= $this->Html->link(__('User Listing'), ['action' => 'userindex'], ['class' => 'active side-nav-item']) ?>
                 </div>
             </div>
         </aside>
@@ -46,9 +47,15 @@
                                     <td><?= h($user->name) ?></td>
                                     <td><?= h($user->email) ?></td>
                                     <td class="actions">
-                                        <?= $this->Html->link(__(''), ['action' => 'userview', $user->id], ['class' => 'fa-solid fa-eye']) ?>
-                                        <?= $this->Html->link(__(''), ['action' => 'useredit', $user->id], ['class' => 'fa-solid fa-pen-to-square']) ?>
-                                        <?= $this->Form->postLink(__(''), ['action' => 'userdelete', $user->id], ['class' => 'fa-solid fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                                        <span class="greenview">
+                                            <?= $this->Html->link(__(''), ['action' => 'userview', $user->id], ['class' => 'bigfont fa-solid fa-eye']) ?>
+                                        </span>
+                                        <span class="blueedit">
+                                            <?= $this->Html->link(__(''), ['action' => 'useredit', $user->id], ['class' => 'bigfont fa-solid fa-pen-to-square']) ?>
+                                        </span>
+                                        <span class="reddelete">
+                                            <?= $this->Form->postLink(__(''), ['action' => 'userdelete', $user->id], ['class' => 'bigfont fa-solid fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                                        </span>
                                     </td>
                                 </tr>
                             <?php
