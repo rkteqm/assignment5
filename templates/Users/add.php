@@ -5,15 +5,18 @@
  * @var \App\Model\Entity\Car $car
  */
 ?>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <aside class="column">
             <div class="side-nav">
-                <h4 class="heading"><?= __('Actions') ?></h4>
-                <?= $this->Html->link(__('List Cars'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+                <div class="container">
+                    <h4 class="heading"><?= __('Actions') ?></h4>
+                    <?= $this->Html->link(__('List Cars'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+                </div>
             </div>
         </aside>
-        <div class="column-responsive column-80">
+        <div class="column-responsive column-90">
+            <?= $this->Flash->render() ?>
             <div class="cars form content">
                 <?= $this->Form->create($car, ["enctype" => "multipart/form-data"]) ?>
                 <fieldset>

@@ -17,8 +17,8 @@
             </div>
         </aside>
         <div class="column-responsive column-90">
+            <?= $this->Flash->render() ?>
             <div class="cars index content">
-                <?= $this->Flash->render() ?>
                 <?= $this->Html->link(__('Add'), ['action' => 'add'], ['class' => 'button float-right']) ?>
                 <div class="col-6">
                     <h3><?= __('Cars  ') ?></h3>
@@ -68,24 +68,26 @@
                                                     $sum += $rating['star'];
                                                     $count++;
                                                 }
-                                                // $i = 0;
-                                                // if ($count != 0) {
                                                 $overallstar = $sum / $count;
-                                                for ($i = 0; $i < $overallstar; $i++) {
+                                                echo '<p>' . number_format($overallstar, 1) . '/5 star</p>';
+                                                for ($i = 1; $i <= $overallstar; $i++) {
                                                     echo '<li class="fa-solid fa-star" value="1"></li>';
                                                 }
-                                                // }
-                                                for ($j = $i; $j < 5; $j++) {
+                                                if ($overallstar > $i - 1 && $overallstar < 5) {
+                                                    echo '<li class="fa-solid fa-star-half-stroke"></li>';
+                                                    $i++;
+                                                }
+                                                for ($j = $i; $j < 6; $j++) {
                                                     echo '<li class="fa-regular fa-star" value="1"></li>';
                                                 }
-                                                echo '<p>'.$count.' '.' reviews</p>';
+                                                echo '<p>' . $count . ' ' . ' reviews</p>';
                                             } else {
                                                 echo 'No reviews yet';
                                             }
                                             ?>
                                         </span>
                                     </td>
-                                    <td><?= $this->Html->image(h($car->image), array('width' => '70px')) ?></td>
+                                    <td><?= $this->Html->image(h($car->image), array('width' => '80px')) ?></td>
                                     <td>
                                         <label class="switch">
                                             <?= $this->Form->postLink(__(''), ['action' => 'status', $car->id, $car->active]) ?>
@@ -94,9 +96,11 @@
                                         </label>
                                     </td>
                                     <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['action' => 'view', $car->id]) ?>
-                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $car->id]) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $car->id], ['confirm' => __('Are you sure you want to delete # {0}?', $car->id)]) ?>
+                                        <div class="allfont">
+                                            <?= $this->Html->link(__(''), ['action' => 'view', $car->id], ['class' => 'bigfont fa-solid fa-eye']) ?>
+                                            <?= $this->Html->link(__(''), ['action' => 'edit', $car->id], ['class' => 'bigfont fa-solid fa-pen-to-square']) ?>
+                                            <?= $this->Form->postLink(__(''), ['action' => 'delete', $car->id], ['class' => 'bigfont fa-solid fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $car->id)]) ?>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php

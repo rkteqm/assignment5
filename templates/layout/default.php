@@ -134,6 +134,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             background-color: #ccc;
         }
 
+        .bigfont{
+            font-size: 20px;
+        }
+
+        .allfont a{
+            color: darkcyan;
+        }
+
     </style>
 </head>
 

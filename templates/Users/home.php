@@ -11,7 +11,7 @@
                                     <td><?= $this->Html->image(h($car->image), array('width' => '400px')) ?></td>
                                 </tr>
                                 <tr>
-                                    <td><?= $this->Html->link(__('View'), ['action' => 'view', $car->id]) ?></td>
+                                    <td><?= $this->Html->link(__('Click here for more details'), ['action' => 'view', $car->id]) ?><i class="fa-solid fa-arrow-right"></i></td>
                                 </tr>
                             </table>
 

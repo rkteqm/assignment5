@@ -46,9 +46,9 @@
                                     <td><?= h($user->name) ?></td>
                                     <td><?= h($user->email) ?></td>
                                     <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['action' => 'userview', $user->id]) ?>
-                                        <?= $this->Html->link(__('Edit'), ['action' => 'useredit', $user->id]) ?>
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'userdelete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
+                                        <?= $this->Html->link(__(''), ['action' => 'userview', $user->id], ['class' => 'fa-solid fa-eye']) ?>
+                                        <?= $this->Html->link(__(''), ['action' => 'useredit', $user->id], ['class' => 'fa-solid fa-pen-to-square']) ?>
+                                        <?= $this->Form->postLink(__(''), ['action' => 'userdelete', $user->id], ['class' => 'fa-solid fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
                                     </td>
                                 </tr>
                             <?php

@@ -62,15 +62,24 @@ use Cake\I18n\Number;
                             <td>
                                 <span class="ratestars">
                                     <?php
-                                    for ($i = 0; $i < $overallstar; $i++) {
+                                    echo '<p>' . number_format($overallstar, 1) . '/5 star</p>';
+                                    for ($i = 1; $i <= $overallstar; $i++) {
                                         echo '<li class="fa-solid fa-star" value="1"></li>';
                                     }
-                                    for ($j = $i; $j < 5; $j++) {
+                                    if ($overallstar > $i - 1 && $overallstar < 5) {
+                                        echo '<li class="fa-solid fa-star-half-stroke"></li>';
+                                        $i++;
+                                    }
+                                    for ($j = $i; $j < 6; $j++) {
                                         echo '<li class="fa-regular fa-star" value="1"></li>';
                                     }
                                     ?>
                                 </span>
                             </td>
+                        </tr>
+                        <tr>
+                            <th><?= __('Reviews') ?></th>
+                            <td><?= h($count) ?> reviews</td>
                         </tr>
                     <?php } ?>
                 </table>

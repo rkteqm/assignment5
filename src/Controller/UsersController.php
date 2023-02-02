@@ -39,31 +39,11 @@ class UsersController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         if ($user->role == 0) {
-            // $cars = $this->paginate($this->Cars);
-
-
-            // $cars = $this->Cars->get($id, [
-            //     'contain' => ['Ratings'],
-            // ]);
-
             $this->paginate = [
                 'contain' => ['Ratings'],
             ];
             $cars = $this->paginate($this->Cars);
 
-            // $sum = 0;
-            // $count = 0;
-            // foreach ($cars as $car) {
-            //     foreach ($car->ratings as $rating) {
-            //         $sum += $rating['star'];
-            //         $count++;
-            //     }
-            //     $overallstar = $sum / $count;
-            //     echo $overallstar .'<br>';
-            // }
-            // echo '<pre>';
-            // print_r($cars);
-            // die;
 
             $this->set(compact('cars'));
         } else {
@@ -111,12 +91,12 @@ class UsersController extends AppController
         ]);
 
         $overallstar = 0;
+        $count = 0;
         $ratings = $this->Ratings->find('all')->where(['car_id' => $id])->order(['id' => 'DESC'])->all();
         if (!empty($car->ratings)) {
             $array = json_decode(json_encode($ratings), true);
 
             $sum = 0;
-            $count = 0;
             foreach ($array as $arr) {
                 $sum += $arr['star'];
                 $count++;
@@ -148,7 +128,7 @@ class UsersController extends AppController
         }
         // $this->set(compact('rating'));
 
-        $this->set(compact('car', 'role', 'rating', 'ratings', 'overallstar'));
+        $this->set(compact('car', 'role', 'rating', 'ratings', 'overallstar', 'count'));
     }
 
     public function userview($id = null)
@@ -221,6 +201,7 @@ class UsersController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
 
             $brands = $this->Users->Brands->find('list', ['limit' => 200])->all()->toArray();
@@ -274,6 +255,7 @@ class UsersController extends AppController
 
                     return $this->redirect(['action' => 'index']);
                 }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             }
             $brands = $this->Users->Brands->find('list', ['limit' => 200])->all()->toArray();
             // $brands = $brand->toArray();

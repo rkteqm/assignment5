@@ -14,6 +14,7 @@
             </div>
         </aside>
         <div class="column-responsive column-80">
+            <?= $this->Flash->render() ?>
             <div class="users form content">
                 <?= $this->Form->create($user) ?>
                 <fieldset>
