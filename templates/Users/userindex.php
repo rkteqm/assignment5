@@ -20,7 +20,6 @@
         <div class="column-responsive column-90">
             <div class="cars index content">
                 <?= $this->Flash->render() ?>
-                <?= $this->Html->link(__('Add'), ['action' => 'register'], ['class' => 'button float-right']) ?>
                 <h3><?= __('Users') ?></h3>
                 <div class="col-6 float-left">
                     <form class="form-inline form-control">

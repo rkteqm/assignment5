@@ -18,7 +18,7 @@
         <div class="column-responsive column-90">
             <?= $this->Flash->render() ?>
             <div class="cars form content">
-                <?= $this->Form->create($car, ["enctype" => "multipart/form-data"]) ?>
+                <?= $this->Form->create($car, ["enctype" => "multipart/form-data", 'id' => 'carform']) ?>
                 <fieldset>
                     <legend><?= __('Add Car') ?></legend>
                     <?php

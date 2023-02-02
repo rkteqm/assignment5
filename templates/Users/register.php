@@ -16,7 +16,7 @@
         <div class="column-responsive column-80">
             <?= $this->Flash->render() ?>
             <div class="users form content">
-                <?= $this->Form->create($user) ?>
+                <?= $this->Form->create($user, ['id' => 'regform']) ?>
                 <fieldset>
                     <legend><?= __('Add User') ?></legend>
                     <?php
