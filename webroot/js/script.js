@@ -33,6 +33,9 @@ $(document).ready(function () {
         },
         'Your password must contain at least one digit.'
     );
+    jQuery.validator.addMethod("noSpace", function (value, element) {
+        return value == '' || value.trim().length != 0;
+    }, "No space please and don't leave it empty");
 
     $("#regform").validate({
         rules: {
@@ -113,6 +116,25 @@ $(document).ready(function () {
 
 
 
+    $("#rateform").validate({
+        rules: {
+            review: {
+                required: true,
+                noSpace: true
+            },
+        },
+        messages: {
+            review: {
+                required: " Please enter your review",
+            },
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+
+
     $("#carform").validate({
         rules: {
             image: {
@@ -133,6 +155,7 @@ $(document).ready(function () {
             company: {
                 required: true,
                 minlength: 2,
+                noSpace: true
             },
             description: {
                 required: true,

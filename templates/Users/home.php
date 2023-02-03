@@ -1,6 +1,9 @@
 <div class="container">
     <div class="cars index content">
-        <h3><?= __('Cars  ') ?></h3>
+        <?= $this->Form->create(null, ['type' => 'get', 'class' => 'float-left', 'id' => 'searchform']) ?>
+        <?= $this->Form->control('key', ['label' => 'Cars', 'placeholder' => 'Search', 'value' => $this->request->getQuery('key'), 'id' => 'searchBox']) ?>
+        <?= $this->Form->submit('search', ['type' => 'hidden', 'id' => 'rahulsearch']) ?>
+        <?= $this->Form->end() ?>
         <div class="table-responsive">
             <div class="container">
                 <?php foreach ($cars as $car) : ?>
@@ -61,3 +64,11 @@
         </div>
     </div>
 </div>
+<script>
+        // $(document).ready(function() {
+        //     $('#searchBox').keyup(function(e) {
+        //         e.preventDefault();
+        //         $('#searchform').submit();
+        //     })
+        // });
+</script>

@@ -63,21 +63,34 @@ class UsersController extends AppController
             return $this->redirect(['action' => 'home']);
         }
     }
-    
+
     public function home()
     {
         if ($this->Authentication->getIdentity()) {
             $user = $this->Authentication->getIdentity();
-            if($user->role == 0){
+            if ($user->role == 0) {
                 return $this->redirect(['action' => 'index']);
-            }else{
-                $cars = $this->paginate($this->Cars->find('all')->order(['id' => 'desc'])->where(['active' => 1]));
-                $this->set(compact('cars'));
+            } else {
+                $key = $this->request->getQuery('key');
+                if ($key) {
+                    $query = $this->Cars->find('all')
+                        ->where(['Or' => ['company like' => '%' . $key . '%', 'brand like' => '%' . $key . '%', 'model like' => '%' . $key . '%', 'make like' => '%' . $key . '%', 'color like' => '%' . $key . '%']]);
+                } else {
+                    $query = $this->Cars;
+                }
+                $cars = $this->paginate($query);
             }
-        }else{
-            $cars = $this->paginate($this->Cars->find('all')->order(['id' => 'desc'])->where(['active' => 1]));
-            $this->set(compact('cars'));
+        } else {
+            $key = $this->request->getQuery('key');
+            if ($key) {
+                $query = $this->Cars->find('all')
+                    ->where(['Or' => ['company like' => '%' . $key . '%', 'brand like' => '%' . $key . '%', 'model like' => '%' . $key . '%', 'make like' => '%' . $key . '%', 'color like' => '%' . $key . '%']]);
+            } else {
+                $query = $this->Cars;
+            }
+            $cars = $this->paginate($query);
         }
+        $this->set(compact('cars'));
     }
 
     /**
@@ -400,6 +413,6 @@ class UsersController extends AppController
     }
 
     public $paginate = [
-        'limit' => 10
+        'limit' => 5
     ];
 }

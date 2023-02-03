@@ -98,19 +98,20 @@ use Cake\I18n\Number;
                     }
                     ?>
                     <div id="commentshow" class="ratings form content">
-                        <?= $this->Form->create($rating) ?>
+                        <?= $this->Form->create($rating, ['id' => 'rateform']) ?>
                         <fieldset>
+                            <legend><a href="" id="hideme">Back</a></legend>
                             <legend><?= __('Rate this car') ?></legend>
                             <span class="ratestars">
-                                <li class="star fa-regular fa-star" value="1"></li>
+                                <li class="star fa-solid fa-star" value="1"></li>
                                 <li class="star fa-regular fa-star" value="2"></li>
                                 <li class="star fa-regular fa-star" value="3"></li>
                                 <li class="star fa-regular fa-star" value="4"></li>
                                 <li class="star fa-regular fa-star" value="5"></li>
                             </span>
                             <?php
-                            echo $this->Form->control('star', ['type' => 'hidden', 'value' => '5', 'id' => 'starinput']);
-                            echo $this->Form->control('review', ['type' => 'textarea']);
+                            echo $this->Form->control('star', ['type' => 'hidden', 'value' => '1', 'id' => 'starinput']);
+                            echo $this->Form->control('review', ['type' => 'textarea', 'required' => false]);
                             ?>
                         </fieldset>
                         <?= $this->Form->button(__('Submit')) ?>
@@ -170,6 +171,11 @@ use Cake\I18n\Number;
             e.preventDefault();
             $(this).hide();
             $('#commentshow').show();
+        });
+        $('#hideme').click(function(e) {
+            e.preventDefault();
+            $('#commentshow').hide();
+            $('#commenthide').show();
         });
 
         $('.star').click(function() {

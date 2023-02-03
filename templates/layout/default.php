@@ -151,7 +151,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             color: #2196F3;
         }
 
-        .reddelete a{
+        .tomatodelete a{
             color: tomato;
         }
 

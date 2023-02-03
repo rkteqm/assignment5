@@ -78,27 +78,6 @@
 </div>
 
 <script>
-    $(document).ready(function() {
-        $('.page-link').click(function() {
-            $(".page-item").removeClass("active");
-            addclas = $(this).parent();
-            addclas.addClass("active")
-            var count = $(this).html();
-            $.ajax({
-                url: 'pagination_data.php',
-                type: 'post',
-                data: ({
-                    'mypage': true,
-                    'count': count
-                }),
-                success: function(response) {
-                    $('.rahul').html('');
-                    $('.rahul').append(response);
-                }
-            });
-        });
-    });
-
     function performSearch() {
 
         // Declare search string 

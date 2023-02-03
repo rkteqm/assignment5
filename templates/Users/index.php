@@ -100,7 +100,7 @@
                                         <span class="blueedit">
                                             <?= $this->Html->link(__(''), ['action' => 'edit', $car->id], ['class' => 'bigfont fa-solid fa-pen-to-square']) ?>
                                         </span>
-                                        <span class="reddelete ">
+                                        <span class="tomatodelete ">
                                             <?= $this->Form->postLink(__(''), ['action' => 'delete', $car->id], ['class' => 'bigfont fa-solid fa-trash', 'confirm' => __('Are you sure you want to delete # {0}?', $car->id)]) ?>
                                         </span>
                                     </td>
@@ -131,25 +131,6 @@
         $('.inac').click(function() {
             var status = $(this).val();
             var id = $(this).prev('a').click();
-        });
-
-        $('.page-link').click(function() {
-            $(".page-item").removeClass("active");
-            addclas = $(this).parent();
-            addclas.addClass("active")
-            var count = $(this).html();
-            $.ajax({
-                url: 'pagination_data.php',
-                type: 'post',
-                data: ({
-                    'mypage': true,
-                    'count': count
-                }),
-                success: function(response) {
-                    $('.rahul').html('');
-                    $('.rahul').append(response);
-                }
-            });
         });
     });
 
