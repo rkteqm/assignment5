@@ -30,10 +30,10 @@
                     <table id="myTable">
                         <thead>
                             <tr>
-                                <th><?= $this->Paginator->sort('Sr No') ?></th>
+                                <th class="txtcenter"><?= $this->Paginator->sort('Sr No') ?></th>
                                 <th><?= $this->Paginator->sort('name') ?></th>
                                 <th><?= $this->Paginator->sort('email') ?></th>
-                                <th class="actions"><?= __('Actions') ?></th>
+                                <th class="actions txtcenter"><?= __('Actions') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,11 +41,10 @@
                             $i = 1;
                             foreach ($users as $user) : ?>
                                 <tr>
-                                    <td><?= $i //$this->Number->format($car->id) 
-                                        ?></td>
+                                    <td class="txtcenter"><?= $i ?></td>
                                     <td><?= h($user->name) ?></td>
                                     <td><?= h($user->email) ?></td>
-                                    <td class="actions">
+                                    <td class="actions txtcenter">
                                         <span class="greenview">
                                             <?= $this->Html->link(__(''), ['action' => 'userview', $user->id], ['class' => 'bigfont fa-solid fa-eye']) ?>
                                         </span>

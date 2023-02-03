@@ -25,41 +25,57 @@
                     echo $this->Form->control('image', ['required' => false, 'type' => 'file']);
                     echo $this->Form->control('company', ['required' => false]);
                     echo '<label for="brand">Brand</label>';
-                    echo $this->Form->select('brand', [
-                        $brands[1] => $brands[1],
-                        $brands[2] => $brands[2],
-                        $brands[3] => $brands[3],
-                    ]);
+                    echo $this->Form->select(
+                        'brand',
+                        [
+                            $brands[1] => $brands[1],
+                            $brands[2] => $brands[2],
+                            $brands[3] => $brands[3],
+                        ],
+                        ['empty' => 'Select car brand']
+                    );
                     echo '<label for="model">Model</label>';
-                    echo $this->Form->select('model', [
-                        '4x4' => '4x4',
-                        '4x2' => '4x2',
-                    ]);
+                    echo $this->Form->select(
+                        'model',
+                        [
+                            '4x4' => '4x4',
+                            '4x2' => '4x2',
+                        ],
+                        ['empty' => 'Select car model']
+                    );
                     echo '<label for="make">Make</label>';
-                    echo $this->Form->select('make', [
-                        '2008' => '2008',
-                        '2009' => '2009',
-                        '2010' => '2010',
-                        '2011' => '2011',
-                        '2012' => '2012',
-                        '2013' => '2013',
-                        '2014' => '2014',
-                        '2015' => '2015',
-                        '2016' => '2016',
-                        '2017' => '2017',
-                        '2018' => '2018',
-                        '2019' => '2019',
-                        '2020' => '2020',
-                        '2021' => '2021',
-                        '2022' => '2022',
-                        '2023' => '2023',
-                    ]);
+                    echo $this->Form->select(
+                        'make',
+                        [
+                            '2008' => '2008',
+                            '2009' => '2009',
+                            '2010' => '2010',
+                            '2011' => '2011',
+                            '2012' => '2012',
+                            '2013' => '2013',
+                            '2014' => '2014',
+                            '2015' => '2015',
+                            '2016' => '2016',
+                            '2017' => '2017',
+                            '2018' => '2018',
+                            '2019' => '2019',
+                            '2020' => '2020',
+                            '2021' => '2021',
+                            '2022' => '2022',
+                            '2023' => '2023',
+                        ],
+                        ['empty' => 'Select make year']
+                    );
                     echo '<label for="color">Color</label>';
-                    echo $this->Form->select('color', [
-                        'Red' => 'Red',
-                        'Black' => 'Black',
-                        'White' => 'White',
-                    ]);
+                    echo $this->Form->select(
+                        'color',
+                        [
+                            'Red' => 'Red',
+                            'Black' => 'Black',
+                            'White' => 'White',
+                        ],
+                        ['empty' => 'Select car color']
+                    );
                     echo $this->Form->control('description', ['required' => false, 'type' => 'textarea']);
                     ?>
                 </fieldset>

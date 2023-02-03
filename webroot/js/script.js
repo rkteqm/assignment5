@@ -3,7 +3,7 @@ $(document).ready(function () {
     jQuery.validator.addMethod("regex", function (value, element, param) {
         return value.match(new RegExp("^" + param + "$"));
     });
-    var ALPHA_REGEX = "[a-zA-Z_ ]*";
+    var ALPHA_REGEX = "[a-zA-Z]*";
 
     jQuery.validator.addMethod(
         'Uppercase',
@@ -118,6 +118,18 @@ $(document).ready(function () {
             image: {
                 required: true,
             },
+            brand: {
+                required: true,
+            },
+            model: {
+                required: true,
+            },
+            make: {
+                required: true,
+            },
+            color: {
+                required: true,
+            },
             company: {
                 required: true,
                 minlength: 2,
@@ -130,6 +142,18 @@ $(document).ready(function () {
         messages: {
             image: {
                 required: " Please select your car image",
+            },
+            brand: {
+                required: " Please select your car brand",
+            },
+            model: {
+                required: " Please select your car model",
+            },
+            make: {
+                required: " Please select your car make year",
+            },
+            color: {
+                required: " Please select your car color",
             },
             company: {
                 required: " Please enter your car company name",

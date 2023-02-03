@@ -41,6 +41,7 @@ class UsersController extends AppController
         if ($user->role == 0) {
             $this->paginate = [
                 'contain' => ['Ratings'],
+                'order' => ['id' => 'desc'],
             ];
             $cars = $this->paginate($this->Cars);
 
@@ -55,18 +56,28 @@ class UsersController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         if ($user->role == 0) {
-            $users = $this->paginate($this->Users->find('all')->where(['role' => 1]));
+            $users = $this->paginate($this->Users->find('all')->where(['role' => 1])->order(['id' => 'desc']));
 
             $this->set(compact('users'));
         } else {
             return $this->redirect(['action' => 'home']);
         }
     }
-
+    
     public function home()
     {
-        $cars = $this->paginate($this->Cars->find('all')->where(['active' => 1]));
-        $this->set(compact('cars'));
+        if ($this->Authentication->getIdentity()) {
+            $user = $this->Authentication->getIdentity();
+            if($user->role == 0){
+                return $this->redirect(['action' => 'index']);
+            }else{
+                $cars = $this->paginate($this->Cars->find('all')->order(['id' => 'desc'])->where(['active' => 1]));
+                $this->set(compact('cars'));
+            }
+        }else{
+            $cars = $this->paginate($this->Cars->find('all')->order(['id' => 'desc'])->where(['active' => 1]));
+            $this->set(compact('cars'));
+        }
     }
 
     /**
@@ -389,6 +400,6 @@ class UsersController extends AppController
     }
 
     public $paginate = [
-        'limit' => 5
+        'limit' => 10
     ];
 }
